@@ -1,0 +1,28 @@
+name: PR Check
+
+on:
+ pull_request:
+  branches: [main]
+
+permissions:
+ contents: read
+
+jobs:
+ quality:
+  runs-on: ubuntu-latest
+  steps:
+   -name: checkout
+   uses: actions/checkout@v6
+
+   -name: Setup Node 26
+   uses: actions/setup-node@v6
+   with:
+    node-version: 26
+    cache: npm
+
+  -name: install
+  run: npm ci
+
+  -name: Test
+  run: npm test
+
